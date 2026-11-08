@@ -1,3 +1,8 @@
+# Lean / Lake generated files
+.lake/
+*.olean
+*.ilean
+
 # Python
 __pycache__/
 *.py[cod]
@@ -18,6 +23,31 @@ venv/
 .env
 .env.*
 !.env.example
+config.toml
+config.local.*
+*.local.*
+
+# Secrets, credentials, and private local data
+secrets/
+credentials/
+private/
+.secrets/
+.credentials/
+.ssh/
+.aws/
+.netrc
+.npmrc
+.pypirc
+secrets.*
+credentials.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+id_rsa*
+id_ed25519*
+*.kdbx
 
 # Jupyter
 .ipynb_checkpoints/
@@ -28,5 +58,5 @@ venv/
 .vscode/
 .idea/
 
-# folder
+# Local course documents: never commit any contents
 docs/
