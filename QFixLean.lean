@@ -9,5 +9,6 @@ public import QFixLean.Basic.State
 public import QFixLean.Basic.Unitary
 public import QFixLean.Examples.Measurement
 public import QFixLean.Examples.Phase
+public import QFixLean.Examples.PiOverThree
 public import QFixLean.Examples.Qubit
 public import QFixLean.PiOverThree.Step
