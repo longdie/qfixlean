@@ -11,10 +11,10 @@ Section 2, equation (1): the operator product `U R_s U† R_t U`;
 Section 3: its amplitude expansion.
 The proofs below are written independently using Mathlib's operator interfaces.
 
-This is the algebraic part of the planned π/3 proof. The overlap in
-`step_failure_expansion` has not yet been identified with a failure probability.
-The specialization `z = exp (I * π / 3)`, normalization/probability bridge,
-and failure-probability-cubing theorem remain to be proved.
+This is the algebraic part of the planned π/3 proof. The basic phase layer
+provides the normalized overlap formula and the exponential π/3 scalar
+identity. Combining them with `step_failure_expansion` to prove the actual
+failure-vector identity and failure-probability cubing remains future work.
 -/
 
 @[expose] public section

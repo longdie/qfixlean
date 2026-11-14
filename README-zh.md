@@ -27,4 +27,6 @@ lake build
 
 [投影接口](QFixLean/Basic/Projection.lean)支持一般目标子空间、正交补投影和归一化源态的秩一投影。对正交投影，[测量权重](QFixLean/Basic/Probability.lean)之和等于输入的平方范数；归一化时，它们是 `[0,1]` 内的概率。复内积桥接与全局相位不变性将这些权重连接到向量运算。[精确测量例子](QFixLean/Examples/Measurement.lean)包含成功率、失败率为 `9/25`、`16/25` 的量子比特，以及三维中保留两个坐标的目标。
 
-库中还已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。完整相位重叠与失败概率的连接、指数相位的具体代入及完整搜索算法证明仍待完成。测量接口目前覆盖二结果投影测量的概率；混态、POVM 和测后态更新不在该接口范围内。
+[选择性相位接口](QFixLean/Basic/Phase.lean)已包含目标与补分量作用、同一目标的测量权重不变性，以及用成功/失败权重表达的内积重叠公式。[实角度相位](QFixLean/Basic/PhaseRotation.lean)采用 `exp (I * φ)`，包含伴随、逆、酉性和源态作用证明。[标量相位因子](QFixLean/Basic/PhaseFactor.lean)已精确证明 π、π/3 的值和 `(ζ - 1)² = -ζ`。[相位例子](QFixLean/Examples/Phase.lean)验证了精确量子比特输出、概率保持，以及包含两个坐标的目标。
+
+已有[符号化单步展开](QFixLean/PiOverThree/Step.lean)和标量消去恒等式为 π/3 搜索证明提供基础。将它们与相位接口合并，证明搜索单步的失败向量恒等式、误差立方和完整算法仍是后续工作。测量接口目前覆盖二结果投影测量的概率；混态、POVM 和测后态更新不在该接口范围内。
