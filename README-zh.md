@@ -23,4 +23,6 @@ lake build
 
 使用 `import QFixLean` 导入公开库。新增模块后运行 `lake exe mk_all --lib QFixLean` 更新自动生成的库入口。本地复现 CI 检查时，依次运行 `lake build --wfail`、`lake exe mk_all --check --lib QFixLean` 和 `git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json`。
 
-主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。内积与失败概率的桥接、指数相位的具体代入及完整搜索算法证明仍待完成。
+主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已提供[归一化纯态](QFixLean/Basic/State.lean)与[酉作用](QFixLean/Basic/Unitary.lean)接口，包含内积保持、复合及伴随或逆操作恢复原态的证明。[精确量子比特例子](QFixLean/Examples/Qubit.lean)覆盖计算基态、叠加态 `(3/5, 4/5)` 和 Pauli X。
+
+库中还已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。投影测量概率、内积与失败概率的桥接、指数相位的具体代入及完整搜索算法证明仍待完成。
