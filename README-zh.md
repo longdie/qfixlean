@@ -17,4 +17,10 @@ lake exe cache get
 lake build
 ```
 
+`lean-toolchain` 指定 Lean 版本，已提交的 `lake-manifest.json` 固定依赖 revision。复现构建时保留这两个文件；只有主动升级依赖时才运行 `lake update`。
+
+[GitHub Actions](https://github.com/longdie/qfixlean/actions/workflows/lean.yml) 在推送或提交拉取请求到 `main` 时运行 `lake build --wfail`，也支持手动触发。工作流下载 Mathlib 编译缓存、从源码构建 QFixLean，在出现构建警告（包括 `sorry` 警告）时失败，并检查公开导入列表完整、依赖版本文件未被改动。所用 Actions 固定到 commit。这些检查用于补充定理与公理审查，不能代替审查。
+
+使用 `import QFixLean` 导入公开库。新增模块后运行 `lake exe mk_all --lib QFixLean` 更新自动生成的库入口。本地复现 CI 检查时，依次运行 `lake build --wfail`、`lake exe mk_all --check --lib QFixLean` 和 `git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json`。
+
 主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。内积与失败概率的桥接、指数相位的具体代入及完整搜索算法证明仍待完成。

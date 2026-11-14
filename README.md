@@ -17,4 +17,10 @@ lake exe cache get
 lake build
 ```
 
+`lean-toolchain` selects Lean, and the committed `lake-manifest.json` pins dependency revisions. Keep both files when reproducing a build; `lake update` is for intentional dependency upgrades.
+
+[GitHub Actions](https://github.com/longdie/qfixlean/actions/workflows/lean.yml) runs `lake build --wfail` on pushes and pull requests to `main`, and supports manual runs. It downloads Mathlib's compiled cache, builds QFixLean from source, fails on build warnings (including `sorry` warnings), and checks the public import list and unchanged dependency pins. The workflow actions are pinned to commit hashes. These checks supplement the theorem and axiom review; they do not replace it.
+
+Import the public library with `import QFixLean`. After adding modules, update its generated entry point with `lake exe mk_all --lib QFixLean`. To reproduce the CI checks locally, run `lake build --wfail`, `lake exe mk_all --check --lib QFixLean`, and `git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json`.
+
 The representation uses continuous linear operators on complex inner-product spaces, with `EuclideanSpace` for finite-dimensional examples. The current code proves [selective phase identities and unitarity](QFixLean/Basic/Phase.lean), together with a [symbolic single-step expansion](QFixLean/PiOverThree/Step.lean) and the scalar cancellation needed at π/3. Connecting the overlap to failure probability, specializing the exponential phase, and proving the complete search algorithms remain planned.
