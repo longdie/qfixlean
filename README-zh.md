@@ -17,4 +17,4 @@ lake exe cache get
 lake build
 ```
 
-当前代码提供工程骨架与数学依赖导入，量子定义及算法证明仍待开展。
+主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。内积与失败概率的桥接、指数相位的具体代入及完整搜索算法证明仍待完成。

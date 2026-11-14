@@ -1,12 +1,14 @@
 module
 
-public import Mathlib.Analysis.InnerProductSpace.Adjoint
+public import QFixLean.Basic.Phase
+public import QFixLean.PiOverThree.Step
 public import Mathlib.RingTheory.Polynomial.Chebyshev
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.Chebyshev.Basic
 
 /-!
 # QFixLean
 
-Project entry point and mathematical imports for inner-product spaces, adjoints,
-and Chebyshev polynomials. Quantum definitions and algorithm proofs are planned.
+Project entry point: selective phase operators, a symbolic single-step expansion,
+and mathematical imports for later Chebyshev analysis. Full quantum foundations
+and fixed-point search correctness remain in progress.
 -/

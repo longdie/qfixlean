@@ -17,4 +17,4 @@ lake exe cache get
 lake build
 ```
 
-The current code provides the project scaffold and mathematical imports; quantum definitions and algorithm proofs are planned.
+The representation uses continuous linear operators on complex inner-product spaces, with `EuclideanSpace` for finite-dimensional examples. The current code proves [selective phase identities and unitarity](QFixLean/Basic/Phase.lean), together with a [symbolic single-step expansion](QFixLean/PiOverThree/Step.lean) and the scalar cancellation needed at π/3. Connecting the overlap to failure probability, specializing the exponential phase, and proving the complete search algorithms remain planned.
