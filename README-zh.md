@@ -25,4 +25,6 @@ lake build
 
 主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已提供[归一化纯态](QFixLean/Basic/State.lean)与[酉作用](QFixLean/Basic/Unitary.lean)接口，包含内积保持、复合及伴随或逆操作恢复原态的证明。[精确量子比特例子](QFixLean/Examples/Qubit.lean)覆盖计算基态、叠加态 `(3/5, 4/5)` 和 Pauli X。
 
-库中还已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。投影测量概率、内积与失败概率的桥接、指数相位的具体代入及完整搜索算法证明仍待完成。
+[投影接口](QFixLean/Basic/Projection.lean)支持一般目标子空间、正交补投影和归一化源态的秩一投影。对正交投影，[测量权重](QFixLean/Basic/Probability.lean)之和等于输入的平方范数；归一化时，它们是 `[0,1]` 内的概率。复内积桥接与全局相位不变性将这些权重连接到向量运算。[精确测量例子](QFixLean/Examples/Measurement.lean)包含成功率、失败率为 `9/25`、`16/25` 的量子比特，以及三维中保留两个坐标的目标。
+
+库中还已证明[选择性相位的代数性质与酉性](QFixLean/Basic/Phase.lean)，以及[符号化单步展开](QFixLean/PiOverThree/Step.lean)和 π/3 所需的标量消去恒等式。完整相位重叠与失败概率的连接、指数相位的具体代入及完整搜索算法证明仍待完成。测量接口目前覆盖二结果投影测量的概率；混态、POVM 和测后态更新不在该接口范围内。
