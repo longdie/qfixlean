@@ -8,6 +8,7 @@ public import QFixLean.Basic.Projection
 public import QFixLean.Basic.State
 public import QFixLean.Basic.Unitary
 public import QFixLean.Examples.Chebyshev
+public import QFixLean.Examples.CyclicTangent
 public import QFixLean.Examples.FixedPointRecurrence
 public import QFixLean.Examples.FixedPointReduction
 public import QFixLean.Examples.Measurement
@@ -34,6 +35,10 @@ public import QFixLean.PiOverThree.Resources
 public import QFixLean.PiOverThree.Step
 public import QFixLean.Polynomial.ChebyshevBounds
 public import QFixLean.Polynomial.ChebyshevParameters
+public import QFixLean.Polynomial.CyclicProductSum
+public import QFixLean.Polynomial.CyclicTangent
+public import QFixLean.Polynomial.CyclicTangentProduct
+public import QFixLean.Polynomial.CyclicTangentSum
 public import QFixLean.Polynomial.PhaseRationalization
 public import QFixLean.Polynomial.PhaseRecurrence
 public import QFixLean.Polynomial.QuasiChebyshev

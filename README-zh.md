@@ -51,4 +51,6 @@ lake build
 
 [准 Chebyshev 代数准备](QFixLean/Polynomial/QuasiChebyshev.lean)已将该递推实例化为 `φₙ = 2*arctan(sqrt(1−γ²)*tan(nπ/L))`。正奇数长度下正切避开极点，每个复数分母因子均非零。分子多项式满足保留相邻下标 n、n−1 的精确清分母递推；完整 L−1 个角的终值对任意复数输入等于 `N_L(x)/D_L`，归一化关系 `N_n(1)=D_n` 独立于 Chebyshev 公式成立。[精确检查](QFixLean/Examples/QuasiChebyshev.lean)覆盖相位符号、短前缀、L=1、γ=1，以及 L=3 的两条独立三次式计算。完整准 Chebyshev 恒等式、显式线路相位对应和位翻转预言机资源分析仍待完成；条件性误差定理保留公式前提。
 
+[循环正切求和](QFixLean/Polynomial/CyclicTangentSum.lean)已证明：对正奇数循环上的任意下标集合 S，`∑_j ∏_{m∈S} i*tan((m+j)π/L)` 在 S.card 为偶数时等于 L，为奇数时等于零。下标按模 L 解释，包含空集和 L=1。[独立根多项式证明](QFixLean/Polynomial/CyclicTangentProduct.lean)提供向下归纳所需的非零正切乘积。单射枚举、固定系数及 `sqrt(1−γ²)` 缩放接口将结果连接到已有相位正切，包含 γ=1。[精确例子](QFixLean/Examples/CyclicTangent.lean)对照三项直接计算与一般定理，给出重复下标反例，并检查只有三个不同平移集合、但仍计全部九个平移的合数长度实例。带权铺砖与系数比较、完整准 Chebyshev 恒等式、线路整合及位翻转预言机代价仍待完成。
+
 Copyright © 2026 QFixLean contributors。QFixLean 采用 [Apache License 2.0](LICENSE)；依赖保留各自的许可证及声明。
