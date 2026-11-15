@@ -31,4 +31,8 @@ The [selective phase interface](QFixLean/Basic/Phase.lean) describes target and 
 
 The [π/3 search step](QFixLean/PiOverThree/Step.lean) constructs the unitary `U R_s U† R_P U` with both phases equal to positive π/3. For any normalized source, unitary `U`, and orthogonal target projection, its actual output has failure vector `ζ ε` times the input failure vector, failure probability `ε³`, and success probability `1 - ε³`. Here `ζ = exp (I * π/3)` and `ε` is the failure probability of `U s`. The proof includes the endpoints `ε = 0, 1` and imposes no target-rank restriction.
 
-[Exact search-step examples](QFixLean/Examples/PiOverThree.lean) independently expand the operator product for `(3/5, 4/5)` and verify that failure probability `16/25` becomes `4096/15625 = (16/25)³`. The recursive algorithm, convergence, query counts, and the 2014 algorithm remain planned. Measurement currently covers two-outcome projection probabilities; mixed states, POVMs, and postmeasurement state updates are outside this interface.
+[Exact search-step examples](QFixLean/Examples/PiOverThree.lean) independently expand the operator product for `(3/5, 4/5)` and verify that failure probability `16/25` becomes `4096/15625 = (16/25)³`.
+
+The [recursive construction](QFixLean/PiOverThree/Recursion.lean) keeps the source and target fixed, starting at `U₀ = U` and replacing each current unitary by its search step. Every level's actual output `Uₖ s` is normalized, with failure probability `ε₀^(3^k)` and success probability `1 - ε₀^(3^k)`. [Exact recursion examples](QFixLean/Examples/PiOverThreeRecursion.lean) check levels 0, 1 and 2, compare two single-step applications with the closed form, and include a target retaining two coordinates.
+
+Monotonicity, convergence, query counts, and the 2014 algorithm remain planned. Measurement currently covers two-outcome projection probabilities; mixed states, POVMs, and postmeasurement state updates are outside this interface.
