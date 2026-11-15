@@ -16,6 +16,7 @@ public import QFixLean.Examples.PiOverThree
 public import QFixLean.Examples.PiOverThreeConvergence
 public import QFixLean.Examples.PiOverThreeRecursion
 public import QFixLean.Examples.PiOverThreeResources
+public import QFixLean.Examples.QuasiChebyshev
 public import QFixLean.Examples.Qubit
 public import QFixLean.FixedPoint.AmplitudeRecurrence
 public import QFixLean.FixedPoint.Conditional
@@ -33,4 +34,8 @@ public import QFixLean.PiOverThree.Resources
 public import QFixLean.PiOverThree.Step
 public import QFixLean.Polynomial.ChebyshevBounds
 public import QFixLean.Polynomial.ChebyshevParameters
+public import QFixLean.Polynomial.PhaseRationalization
 public import QFixLean.Polynomial.PhaseRecurrence
+public import QFixLean.Polynomial.QuasiChebyshev
+public import QFixLean.Polynomial.QuasiChebyshevAlgebra
+public import QFixLean.Polynomial.QuasiChebyshevPhases

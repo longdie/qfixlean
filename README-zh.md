@@ -49,4 +49,6 @@ lake build
 
 [振幅递推桥接](QFixLean/FixedPoint/AmplitudeRecurrence.lean)进一步证明，同一实际输出的失败概率等于[复系数多项式](QFixLean/Polynomial/PhaseRecurrence.lean)在初始失败振幅大小处求值的模平方。长度为 ℓ 的广义迭代列表使用 `2*ℓ` 个递推角，终止于振幅下标 `2*ℓ+1`；初值为 `1, x`，更新为 `a_next = x*(1+exp(-iφ))*a_current - exp(-iφ)*a_previous`。[交错矩阵证明](QFixLean/FixedPoint/Interleaved.lean)以不含除法的恒等式消去辅助坐标；精确向量等式保留累积相位，统一概率定理包含初始成功率零和一。P14 执行沿用已有参数转换并保留额外的 `(-1)^ℓ`。[精确递推例子](QFixLean/Examples/FixedPointRecurrence.lean)对照直接执行与递推计算，包含真正为非实数的终值。指定反三角相位序列的 Chebyshev 恒等式仍待证明。
 
+[准 Chebyshev 代数准备](QFixLean/Polynomial/QuasiChebyshev.lean)已将该递推实例化为 `φₙ = 2*arctan(sqrt(1−γ²)*tan(nπ/L))`。正奇数长度下正切避开极点，每个复数分母因子均非零。分子多项式满足保留相邻下标 n、n−1 的精确清分母递推；完整 L−1 个角的终值对任意复数输入等于 `N_L(x)/D_L`，归一化关系 `N_n(1)=D_n` 独立于 Chebyshev 公式成立。[精确检查](QFixLean/Examples/QuasiChebyshev.lean)覆盖相位符号、短前缀、L=1、γ=1，以及 L=3 的两条独立三次式计算。完整准 Chebyshev 恒等式、显式线路相位对应和位翻转预言机资源分析仍待完成；条件性误差定理保留公式前提。
+
 Copyright © 2026 QFixLean contributors。QFixLean 采用 [Apache License 2.0](LICENSE)；依赖保留各自的许可证及声明。
