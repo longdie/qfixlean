@@ -8,6 +8,7 @@ public import QFixLean.Basic.Projection
 public import QFixLean.Basic.State
 public import QFixLean.Basic.Unitary
 public import QFixLean.Examples.Chebyshev
+public import QFixLean.Examples.FixedPointReduction
 public import QFixLean.Examples.Measurement
 public import QFixLean.Examples.Phase
 public import QFixLean.Examples.PiOverThree
@@ -16,6 +17,11 @@ public import QFixLean.Examples.PiOverThreeRecursion
 public import QFixLean.Examples.PiOverThreeResources
 public import QFixLean.Examples.Qubit
 public import QFixLean.FixedPoint.Conditional
+public import QFixLean.FixedPoint.PhaseBoundary
+public import QFixLean.FixedPoint.PhaseConventions
+public import QFixLean.FixedPoint.PhaseSequence
+public import QFixLean.FixedPoint.Reduction
+public import QFixLean.FixedPoint.TwoDimensional
 public import QFixLean.PiOverThree.Boundary
 public import QFixLean.PiOverThree.Construction
 public import QFixLean.PiOverThree.Convergence

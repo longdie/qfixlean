@@ -43,6 +43,8 @@ lake build
 
 对于 2014 年方案，[Chebyshev 比值界](QFixLean/Polynomial/ChebyshevBounds.lean)与[标准参数分析](QFixLean/Polynomial/ChebyshevParameters.lean)已证明标量误差保证。对正次数 L 和 `0 < δ < 1`，参数为 `γ = 1 / cosh(arcosh(1/δ)/L)`，归一化分母精确满足 `T_L(1/γ) = 1/δ`。当成功率参数 `λ ∈ [0,1]` 且 `λ ≥ 1 - γ²` 时，带符号比值 `T_L(sqrt(1-λ)/γ) / T_L(1/γ)` 的绝对值不超过 δ，其平方不超过 `δ²`，互补标量模型至少为 `1 - δ²`。对满足参数匹配条件的下界 `λ₀`，保证在整个承诺区间统一成立；这些标量界不要求次数为奇数。
 
-[条件性量子保证](QFixLean/FixedPoint/Conditional.lean)明确假设实际归一化输出的失败概率等于上述比值平方，其中 λ 取实际初始态的成功概率。在这个公式前提及承诺区间条件下，证明同一输出的失败概率不超过 `δ²`、成功概率至少为 `1 - δ²`。[精确例子](QFixLean/Examples/Chebyshev.lean)包含负的三次比值 `-1/26`，以及直接证明公式前提的次数一量子比特实例。标量分析已经完成；P14 正奇数显式相位序列的公式正确性、实际演化与递推，以及位翻转预言机查询代价仍待后续实现。这些条件性结果尚未建立该算法的完整正确性或最优性。
+[条件性量子保证](QFixLean/FixedPoint/Conditional.lean)明确假设实际归一化输出的失败概率等于上述比值平方，其中 λ 取实际初始态的成功概率。在这个公式前提及承诺区间条件下，证明同一输出的失败概率不超过 `δ²`、成功概率至少为 `1 - δ²`。[精确例子](QFixLean/Examples/Chebyshev.lean)包含负的三次比值 `-1/26`，以及直接证明公式前提的次数一量子比特实例。P14 正奇数显式相位序列的 Chebyshev 公式正确性、准 Chebyshev 递推及位翻转预言机查询代价仍待后续实现。这些条件性结果尚未建立该算法的完整正确性或最优性。
+
+[广义相位序列](QFixLean/FixedPoint/PhaseSequence.lean)已按明确的时间顺序执行任意目标/源态相位，始终固定参考态。原始好坏分量张成的子空间在整个执行中保持不变，包含退化输入。当初始成功率严格位于零和一之间时，[规范二维约化](QFixLean/FixedPoint/Reduction.lean)将欧氏坏/好坐标等距嵌入该子空间，证明每个实际单步及序列与[显式酉矩阵](QFixLean/FixedPoint/TwoDimensional.lean)精确对应；同一输出的失败、成功概率等于两个坐标的模平方。[约定转换](QFixLean/FixedPoint/PhaseConventions.lean)证明 P14/P24 的参数对应及精确全局因子 `(-1)^length`。[边界证明](QFixLean/FixedPoint/PhaseBoundary.lean)保留累积相位，说明任意序列下初始成功率零、一分别保持为零、一。[精确例子](QFixLean/Examples/FixedPointReduction.lean)独立核对算符与矩阵计算、执行顺序、复相位和一般秩目标。这些一般演化结果尚未证明 P14 指定相位满足 Chebyshev 公式。
 
 Copyright © 2026 QFixLean contributors。QFixLean 采用 [Apache License 2.0](LICENSE)；依赖保留各自的许可证及声明。
