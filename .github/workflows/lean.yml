@@ -39,5 +39,8 @@ jobs:
       - name: Check the public import list
         run: lake exe mk_all --check --lib QFixLean
 
+      - name: Check project axiom dependencies
+        run: lake env lean -DwarningAsError=true scripts/CheckAxioms.lean
+
       - name: Check dependency pins stayed unchanged
         run: git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
