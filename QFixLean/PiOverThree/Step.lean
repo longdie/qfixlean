@@ -17,7 +17,8 @@ so its failure probability is exactly `ε³`. Targets are arbitrary orthogonal
 projections; this gives an explicit projector formulation of the paper's
 state/subspace setting. Recursive correctness is developed in `Recursion.lean`,
 with endpoints in `Boundary.lean` and probability/complement-norm convergence
-in `Convergence.lean`. Query analysis remains future work.
+in `Convergence.lean`. `Resources.lean` connects this recursion to a counted
+construction under an explicit target-phase query model.
 -/
 
 @[expose] public section

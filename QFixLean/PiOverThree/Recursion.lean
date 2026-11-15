@@ -13,7 +13,7 @@ and target `P` remain fixed; each output is that level's operator applied to
 the same `s`. The single-step theorem gives failure probability `ε₀^(3^k)`.
 Endpoint behavior is developed in `Boundary.lean`, and monotonicity and
 probability/complement-norm convergence in `Convergence.lean`.
-Resource counts are separate later work.
+`Resources.lean` proves resource counts for a construction with exactly this semantics.
 -/
 
 @[expose] public section

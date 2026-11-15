@@ -12,8 +12,11 @@ public import QFixLean.Examples.Phase
 public import QFixLean.Examples.PiOverThree
 public import QFixLean.Examples.PiOverThreeConvergence
 public import QFixLean.Examples.PiOverThreeRecursion
+public import QFixLean.Examples.PiOverThreeResources
 public import QFixLean.Examples.Qubit
 public import QFixLean.PiOverThree.Boundary
+public import QFixLean.PiOverThree.Construction
 public import QFixLean.PiOverThree.Convergence
 public import QFixLean.PiOverThree.Recursion
+public import QFixLean.PiOverThree.Resources
 public import QFixLean.PiOverThree.Step
