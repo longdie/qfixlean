@@ -95,7 +95,7 @@ theorem quasi_gamma_one_recurrence (L n : ℕ) :
       2 * X * numerator (tangent L 1) (n + 1) - numerator (tangent L 1) n :=
   numerator_recurrence_gamma_one _ _
 
-/-- The first nonzero tangent of the length-three paper schedule. -/
+/-- The tangent at index one of the length-three paper schedule. -/
 def cubicTangent (γ : ℝ) : ℝ := Real.sqrt (1 - γ^2) * Real.tan (Real.pi / 3)
 
 @[simp]
