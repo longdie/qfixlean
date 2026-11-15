@@ -15,8 +15,9 @@ The symbolic expansion is connected to the actual normalized output of
 `searchStep`. Its complementary vector is `ζ ε` times the input complement,
 so its failure probability is exactly `ε³`. Targets are arbitrary orthogonal
 projections; this gives an explicit projector formulation of the paper's
-state/subspace setting. Recursive correctness is developed in `Recursion.lean`;
-convergence and query analysis are separate future work.
+state/subspace setting. Recursive correctness is developed in `Recursion.lean`,
+with endpoints in `Boundary.lean` and probability/complement-norm convergence
+in `Convergence.lean`. Query analysis remains future work.
 -/
 
 @[expose] public section

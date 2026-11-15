@@ -11,7 +11,9 @@ Section 4, equation (3), and the probability formula following equation (4).
 `searchRecursion U s hP k` is the actual unitary at level `k`. The source `s`
 and target `P` remain fixed; each output is that level's operator applied to
 the same `s`. The single-step theorem gives failure probability `ε₀^(3^k)`.
-Monotonicity, convergence and resource counts are separate later results.
+Endpoint behavior is developed in `Boundary.lean`, and monotonicity and
+probability/complement-norm convergence in `Convergence.lean`.
+Resource counts are separate later work.
 -/
 
 @[expose] public section
