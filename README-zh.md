@@ -19,9 +19,19 @@ lake build
 
 `lean-toolchain` 指定 Lean 版本，已提交的 `lake-manifest.json` 固定依赖 revision。复现构建时保留这两个文件；只有主动升级依赖时才运行 `lake update`。
 
-[GitHub Actions](https://github.com/longdie/qfixlean/actions/workflows/lean.yml) 在推送或提交拉取请求到 `main` 时运行 `lake build --wfail`，也支持手动触发。工作流下载 Mathlib 编译缓存、从源码构建 QFixLean，在出现构建警告（包括 `sorry` 警告）时失败，并检查公开导入列表完整、依赖版本文件未被改动。[公理审查程序](scripts/CheckAxioms.lean)检查项目模块中声明的传递依赖，只允许 `propext`、`Classical.choice` 和 `Quot.sound`；出现其他公理则检查失败。所用 Actions 固定到 commit。这些检查用于补充对定理陈述、假设及其算法对应关系的审查。
+[GitHub Actions](https://github.com/longdie/qfixlean/actions/workflows/lean.yml) 在推送或提交拉取请求到 `main` 时运行 `lake build --wfail`，也支持手动触发。工作流下载 Mathlib 编译缓存、从源码构建 QFixLean，在出现构建警告（包括 `sorry` 警告）时失败，并检查公开导入列表完整、依赖版本文件未被改动。[公理审查程序](scripts/CheckAxioms.lean)检查项目模块中声明的传递依赖，只允许 `propext`、`Classical.choice` 和 `Quot.sound`；出现其他公理则检查失败。[主要结果检查](scripts/CheckResults.lean)明确写出预期算法输出、概率、极限及构造成本和允许的假设，再通过公共库完成证明。所用 Actions 固定到 commit。这些检查用于补充对定理陈述、假设及其算法对应关系的审查。
 
-使用 `import QFixLean` 导入公开库。新增模块后运行 `lake exe mk_all --lib QFixLean` 更新自动生成的库入口。本地复现 CI 检查时，依次运行 `lake build --wfail`、`lake exe mk_all --check --lib QFixLean`、`lake env lean -DwarningAsError=true scripts/CheckAxioms.lean` 和 `git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json`。
+使用 `import QFixLean` 导入公开库。新增模块后运行 `lake exe mk_all --lib QFixLean` 更新自动生成的库入口。本地复现 CI 检查时，依次运行：
+
+```sh
+lake build --wfail
+lake exe mk_all --check --lib QFixLean
+lake env lean -DwarningAsError=true scripts/CheckAxioms.lean
+lake env lean -DwarningAsError=true scripts/CheckResults.lean
+git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
+```
+
+独立复现时，从所需提交的全新检出开始，保留固定工具链与依赖锁，通过 `lake exe cache get` 下载依赖缓存，不复制已有 QFixLean 构建目录。缓存提供已编译依赖，QFixLean 根据受控源码构建。无 Git 元数据的 archive 副本应将版本文件和源码哈希与对应提交比较，替代 Git 差异命令。[来源与许可](SOURCES.md)记录论文版本、依赖及参考库快照。
 
 主表示采用复内积空间上的连续线性算符，有限维例子使用 `EuclideanSpace`。当前已提供[归一化纯态](QFixLean/Basic/State.lean)与[酉作用](QFixLean/Basic/Unitary.lean)接口，包含内积保持、复合及伴随或逆操作恢复原态的证明。[精确量子比特例子](QFixLean/Examples/Qubit.lean)覆盖计算基态、叠加态 `(3/5, 4/5)` 和 Pauli X。
 
@@ -61,6 +71,6 @@ lake build
 
 [有限选参](QFixLean/FixedPoint/Parameters.lean)明确规定 `B = log(2/δ)/sqrt(λ₀)`、`ℓ = ceil(B/2)`、`L = 2ℓ+1`，证明标准参数满足 `1−γ²≤λ₀`，并得到 `Q < B+2` 和 `L < B+3`。[联合算法定理](QFixLean/FixedPoint/Resources.lean)的前提为归一参考态、酉态制备、正交目标、`0<δ<1`，以及实际制备态成功率至少为 `λ₀∈(0,1]`。实际编译输出归一化、辅助位恢复，与已证明的显式算法对应，失败概率不超过 `δ²`、成功概率至少为 `1−δ²`。同一个未经优化的构造使用 `Q=2ℓ=L−1` 次位翻转查询、`ℓ+1` 次 A、`ℓ` 次 A†，以及各 `ℓ` 次参考态相位和辅助位相位；若已提供制备态，则去掉初始额外的一次 A。[完整精确例子](QFixLean/Examples/FixedPointResources.lean)使用非恒等有理旋转、`λ₀=1/4`、`δ=1/2`：次数五、成功率至少 `3/4`、四次位翻转查询、三次 A 和两次 A†。
 
-这些是精确相位模型下的构造成本：所述查询界假定 A/A† 不含目标查询成本，参考态与辅助位相位作为另计的已提供操作。M10 统计目标相位查询，M18 统计位翻转查询，比较前需要明确实现换算。有限上界不包含查询最优性的下界证明，也不表示最小门数或运行时间；精确实数相位不等于已完成有限精度相位综合。M19 全项目复现审查和 M20 课程交付仍待推进。
+这些是精确相位模型下的构造成本：所述查询界假定 A/A† 不含目标查询成本，参考态与辅助位相位作为另计的已提供操作。M10 统计目标相位查询，M18 统计位翻转查询，比较前需要明确实现换算。有限上界不包含查询最优性的下界证明，也不表示最小门数或运行时间；精确实数相位不等于已完成有限精度相位综合。上述检查提供全项目证明与复现的验收入口；M20 课程报告和汇报材料仍待推进。
 
 Copyright © 2026 QFixLean contributors。QFixLean 采用 [Apache License 2.0](LICENSE)；依赖保留各自的许可证及声明。
