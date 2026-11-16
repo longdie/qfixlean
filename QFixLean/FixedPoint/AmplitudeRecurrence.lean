@@ -15,8 +15,8 @@ The target has arbitrary rank. Only the normalized-direction vector equalities
 need a nondegenerate initial success probability. The final probability
 identities include both endpoints and retain no formula premise.
 
-The recurrence is general: identifying its terminal polynomial with a
-Chebyshev ratio for a particular phase schedule remains a later task.
+This recurrence is general. `FixedPoint.Correctness` identifies the explicit
+P14/P24 schedule with a Chebyshev ratio through the proved terminal identity.
 -/
 
 @[expose] public section

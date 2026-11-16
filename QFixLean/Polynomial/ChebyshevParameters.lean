@@ -18,9 +18,9 @@ polynomial degree itself is a natural number cast to Mathlib's integer index.
 The standard parameter guarantees require `0 < L` and `0 < δ < 1`.
 Definitions outside that domain still have Lean values; no algorithmic
 interpretation or endpoint-limit theorem is asserted there. The error models
-below are scalar formulas, not the output probabilities of a constructed
-phase-sequence algorithm. Their quantum use requires an explicit formula
-hypothesis in `FixedPoint.Conditional`.
+below are scalar formulas. `FixedPoint.Conditional` accepts an explicit
+formula hypothesis, while `FixedPoint.Correctness` proves that formula for
+the constructed explicit P14/P24 phase sequence.
 -/
 
 @[expose] public section
@@ -37,7 +37,8 @@ def parameter (L : ℕ) (δ : ℝ) : ℝ :=
 def failureModel (L : ℕ) (δ lam : ℝ) : ℝ :=
   amplitude L (parameter L δ) (Real.sqrt (1 - lam)) ^ 2
 
-/-- The complementary scalar model; its connection to an algorithm is conditional. -/
+/-- The complementary scalar model, connected to the explicit algorithm in
+`FixedPoint.Correctness`. -/
 def successModel (L : ℕ) (δ lam : ℝ) : ℝ := 1 - failureModel L δ lam
 
 theorem parameter_pos (L : ℕ) (δ : ℝ) : 0 < parameter L δ :=

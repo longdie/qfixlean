@@ -11,13 +11,14 @@ Reference: Yoder, Low, Chuang, arXiv:1409.3305v2, equation (1) and the
 following promise-interval argument. The scalar analysis is proved in
 `Polynomial.ChebyshevParameters`. Here `hFormula` explicitly assumes that the
 actual output's failure weight equals that scalar formula. Establishing this
-equality for an explicit phase sequence remains a separate algorithmic task.
+equality for the explicit P14/P24 phase sequence is proved separately in
+`FixedPoint.Correctness`.
 
 The input's success probability lies in `[0,1]` by normalization and the
 orthogonal target projection. The output guarantee uses the same output's
 success/failure complementarity. Targets may have arbitrary rank. The
 conditional implication holds for every positive degree; connecting it to
-the P14 sequence will require the algorithm's positive odd degree.
+the P14 sequence in `Correctness` uses the algorithm's positive odd degree.
 -/
 
 @[expose] public section

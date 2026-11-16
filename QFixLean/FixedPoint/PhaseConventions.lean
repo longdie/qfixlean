@@ -11,7 +11,8 @@ P24 v3 uses G24(α,β)=R_Q(β) R_P(α). Thus a P14 pair maps to
 The extension of P14's target phase to arbitrary-rank P is a project interface;
 its restriction to the initial component span agrees with the target-direction
 phase once the nondegenerate reduction is established. These statements do
-not identify the papers' explicit inverse-trigonometric phase schedules.
+not themselves identify the papers' explicit inverse-trigonometric phase
+schedules; `ExplicitPhases` proves that additional correspondence.
 -/
 
 @[expose] public section

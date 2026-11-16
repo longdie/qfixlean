@@ -10,6 +10,7 @@ public import QFixLean.Basic.Unitary
 public import QFixLean.Examples.Chebyshev
 public import QFixLean.Examples.CyclicTangent
 public import QFixLean.Examples.CyclicTilings
+public import QFixLean.Examples.FixedPointCorrectness
 public import QFixLean.Examples.FixedPointRecurrence
 public import QFixLean.Examples.FixedPointReduction
 public import QFixLean.Examples.LineTilings
@@ -24,6 +25,8 @@ public import QFixLean.Examples.QuasiChebyshevIdentity
 public import QFixLean.Examples.Qubit
 public import QFixLean.FixedPoint.AmplitudeRecurrence
 public import QFixLean.FixedPoint.Conditional
+public import QFixLean.FixedPoint.Correctness
+public import QFixLean.FixedPoint.ExplicitPhases
 public import QFixLean.FixedPoint.Interleaved
 public import QFixLean.FixedPoint.PhaseBoundary
 public import QFixLean.FixedPoint.PhaseConventions
