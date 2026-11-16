@@ -13,8 +13,8 @@ uses angles `φ₁,…,φ₂ℓ`. Its terminal amplitude is exactly `N_L(x)/D_L`
 
 The algebra below holds even for arbitrary real `γ`; the paper uses
 `0 < γ ≤ 1`. Tangent pole avoidance is independently proved for odd `L`.
-The terminal numerator and denominator are not yet identified with
-Chebyshev polynomials. No physical circuit phase convention is inferred.
+The terminal Chebyshev identification is proved in `QuasiChebyshevIdentity`.
+No physical circuit phase convention is inferred by this algebra module.
 -/
 
 @[expose] public section
@@ -118,8 +118,8 @@ theorem specified_numerator_eval_one (L : ℕ) (γ : ℝ) (n : ℕ) :
   | zero => rfl
   | succ n ih => simp [denominatorProduct_succ, ih]
 
-/-- The parameter endpoint has the ordinary Chebyshev recurrence, without
-asserting the still-unproved general specified-phase identity. -/
+/-- The parameter endpoint has the ordinary Chebyshev recurrence. The general
+specified-phase identity is proved in `QuasiChebyshevIdentity`. -/
 theorem numerator_recurrence_gamma_one (L n : ℕ) :
     numerator (tangent L 1) (n + 2) =
       2 * X * numerator (tangent L 1) (n + 1) - numerator (tangent L 1) n := by
