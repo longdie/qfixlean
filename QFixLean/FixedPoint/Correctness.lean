@@ -14,7 +14,8 @@ P24, arXiv:2403.02057v3, Sections 2 and 3.1--3.3. The same explicit
 unitary execution is connected to M13's recurrence and M16's terminal
 identity. M11's scalar error estimate then applies without a formula premise.
 The source state and arbitrary-rank target are fixed throughout execution.
-Oracle implementations, query accounting and degree selection are separate.
+Oracle implementations, query accounting and finite degree selection are proved
+in `FixedPoint.Resources`, which uses the actual output theorems here.
 -/
 
 @[expose] public section
@@ -211,7 +212,8 @@ theorem p14_error_guarantee (ℓ : ℕ) {δ : ℝ} (hδ : 0 < δ) (hδ1 : δ < 1
     hpromise (p14ParameterSearch_failureWeight ψ₀ hP ℓ hδ hδ1)
 
 /-- One chosen list works uniformly for all inputs above the matched lower
-bound. Selection of a sufficient odd length is deliberately left to M18. -/
+bound. `FixedPoint.Parameters` discharges matching for its explicit odd selector,
+and `FixedPoint.Resources` connects it to the counted bit-oracle construction. -/
 theorem uniform_error_guarantee (ℓ : ℕ) {δ lam₀ : ℝ} (hδ : 0 < δ) (hδ1 : δ < 1)
     (_hlam₀ : lam₀ ∈ Set.Ioc (0 : ℝ) 1)
     (hmatch : 1 - (Chebyshev.parameter (2 * ℓ + 1) δ) ^ 2 ≤ lam₀)

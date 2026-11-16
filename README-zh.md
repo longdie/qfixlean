@@ -6,7 +6,7 @@ QFixLean 是 **上海交通大学量子科学计算课程（2026 年秋季学期
 
 固定点量子搜索旨在解决普通 Grover 搜索中的过冲问题。我们希望通过这一主题加深对量子算法的理解，并探索如何使用 Lean 明确算法的假设与正确性保证，使其接受机器检查。
 
-项目计划使用 **Lean 4 和 Mathlib**。基础目标是先形式化课程中的量子基础知识（量子态、酉变换、投影测量与相位操作），再完成对 [Grover 于 2005 年提出的 π/3 固定点搜索算法](https://arxiv.org/abs/quant-ph/0503205)的形式化。拓展目标是尝试形式化 [Yoder、Low 和 Chuang 于 2014 年提出的固定点振幅放大算法](https://arxiv.org/abs/1409.3305)，其完成情况将取决于项目进度。
+项目使用 **Lean 4 和 Mathlib**，目前代码已覆盖所需量子基础、[Grover 于 2005 年提出的 π/3 固定点搜索算法](https://arxiv.org/abs/quant-ph/0503205)的核心概率与资源保证，以及 [Yoder、Low 和 Chuang 于 2014 年提出的固定点振幅放大算法](https://arxiv.org/abs/1409.3305)的显式相位正确性和位翻转预言机查询上界。各项结果的范围与假设见下文。
 
 我们希望为量子科学计算与 Lean 形式化社区贡献可复用的定义和证明，逐步积累服务于量子算法学习与验证的基础设施。
 
@@ -49,12 +49,18 @@ lake build
 
 [振幅递推桥接](QFixLean/FixedPoint/AmplitudeRecurrence.lean)进一步证明，同一实际输出的失败概率等于[复系数多项式](QFixLean/Polynomial/PhaseRecurrence.lean)在初始失败振幅大小处求值的模平方。长度为 ℓ 的广义迭代列表使用 `2*ℓ` 个递推角，终止于振幅下标 `2*ℓ+1`；初值为 `1, x`，更新为 `a_next = x*(1+exp(-iφ))*a_current - exp(-iφ)*a_previous`。[交错矩阵证明](QFixLean/FixedPoint/Interleaved.lean)以不含除法的恒等式消去辅助坐标；精确向量等式保留累积相位，统一概率定理包含初始成功率零和一。P14 执行沿用已有参数转换并保留额外的 `(-1)^ℓ`。[精确递推例子](QFixLean/Examples/FixedPointRecurrence.lean)对照直接执行与递推计算，包含真正为非实数的终值。指定标量相位递推的恒等式及其与显式算法的对应已在下文证明。
 
-[准 Chebyshev 代数准备](QFixLean/Polynomial/QuasiChebyshev.lean)已将该递推实例化为 `φₙ = 2*arctan(sqrt(1−γ²)*tan(nπ/L))`。正奇数长度下正切避开极点，每个复数分母因子均非零。分子多项式满足保留相邻下标 n、n−1 的精确清分母递推；完整 L−1 个角的终值对任意复数输入等于 `N_L(x)/D_L`，归一化关系 `N_n(1)=D_n` 独立于 Chebyshev 公式成立。[精确检查](QFixLean/Examples/QuasiChebyshev.lean)覆盖相位符号、短前缀、L=1、γ=1，以及 L=3 的两条独立三次式计算。终值恒等式和显式相位对应已在下文证明。通用条件性误差定理保留公式前提，新增算法定理则证明该前提。位翻转预言机资源分析仍待完成。
+[准 Chebyshev 代数准备](QFixLean/Polynomial/QuasiChebyshev.lean)已将该递推实例化为 `φₙ = 2*arctan(sqrt(1−γ²)*tan(nπ/L))`。正奇数长度下正切避开极点，每个复数分母因子均非零。分子多项式满足保留相邻下标 n、n−1 的精确清分母递推；完整 L−1 个角的终值对任意复数输入等于 `N_L(x)/D_L`，归一化关系 `N_n(1)=D_n` 独立于 Chebyshev 公式成立。[精确检查](QFixLean/Examples/QuasiChebyshev.lean)覆盖相位符号、短前缀、L=1、γ=1，以及 L=3 的两条独立三次式计算。终值恒等式和显式相位对应已在下文证明。通用条件性误差定理保留公式前提，新增算法定理则证明该前提。位翻转预言机实现与资源证明见下文。
 
-[循环正切求和](QFixLean/Polynomial/CyclicTangentSum.lean)已证明：对正奇数循环上的任意下标集合 S，`∑_j ∏_{m∈S} i*tan((m+j)π/L)` 在 S.card 为偶数时等于 L，为奇数时等于零。下标按模 L 解释，包含空集和 L=1。[独立根多项式证明](QFixLean/Polynomial/CyclicTangentProduct.lean)提供向下归纳所需的非零正切乘积。单射枚举、固定系数及 `sqrt(1−γ²)` 缩放接口将结果连接到已有相位正切，包含 γ=1。[精确例子](QFixLean/Examples/CyclicTangent.lean)对照三项直接计算与一般定理，给出重复下标反例，并检查只有三个不同平移集合、但仍计全部九个平移的合数长度实例。带权比较、标量恒等式及显式相位整合已在下文证明；位翻转预言机代价仍待完成。
+[循环正切求和](QFixLean/Polynomial/CyclicTangentSum.lean)已证明：对正奇数循环上的任意下标集合 S，`∑_j ∏_{m∈S} i*tan((m+j)π/L)` 在 S.card 为偶数时等于 L，为奇数时等于零。下标按模 L 解释，包含空集和 L=1。[独立根多项式证明](QFixLean/Polynomial/CyclicTangentProduct.lean)提供向下归纳所需的非零正切乘积。单射枚举、固定系数及 `sqrt(1−γ²)` 缩放接口将结果连接到已有相位正切，包含 γ=1。[精确例子](QFixLean/Examples/CyclicTangent.lean)对照三项直接计算与一般定理，给出重复下标反例，并检查只有三个不同平移集合、但仍计全部九个平移的合数长度实例。带权比较、标量恒等式及显式相位整合已在下文证明；位翻转预言机代价已在下文证明。
 
-[准 Chebyshev 恒等式](QFixLean/Polynomial/QuasiChebyshevIdentity.lean)已证明：对全部正奇数 L 和 `0 < γ ≤ 1`，原分子为 `γ^L T_L(X/γ)`，分母为 `γ^L T_L(1/γ)`，同一 L−1 个角的递推终值对任意复数 x 等于 `T_L(x/γ)/T_L(1/γ)`。实数输入时，它恰为 M11 的带符号振幅，其平方等于终值模平方。证明将[实际有限线段铺砖](QFixLean/Polynomial/LineTilings.lean)连接到[圆周权重](QFixLean/Polynomial/TilingWeights.lean)，用 M15 展开互异端点子集，再以置换双重求和保留全部旋转重数。[精确检查](QFixLean/Examples/QuasiChebyshevIdentity.lean)覆盖 L=1、γ=1、独立三次式计算及数值 `−1/26`；[实际长度九周期铺砖](QFixLean/Examples/CyclicTilings.lean)有三种不同旋转，每种计三次。该标量恒等式用于下文的实际算法正确性证明；M18 预言机资源仍待完成。
+[准 Chebyshev 恒等式](QFixLean/Polynomial/QuasiChebyshevIdentity.lean)已证明：对全部正奇数 L 和 `0 < γ ≤ 1`，原分子为 `γ^L T_L(X/γ)`，分母为 `γ^L T_L(1/γ)`，同一 L−1 个角的递推终值对任意复数 x 等于 `T_L(x/γ)/T_L(1/γ)`。实数输入时，它恰为 M11 的带符号振幅，其平方等于终值模平方。证明将[实际有限线段铺砖](QFixLean/Polynomial/LineTilings.lean)连接到[圆周权重](QFixLean/Polynomial/TilingWeights.lean)，用 M15 展开互异端点子集，再以置换双重求和保留全部旋转重数。[精确检查](QFixLean/Examples/QuasiChebyshevIdentity.lean)覆盖 L=1、γ=1、独立三次式计算及数值 `−1/26`；[实际长度九周期铺砖](QFixLean/Examples/CyclicTilings.lean)有三种不同旋转，每种计三次。该标量恒等式用于下文的实际算法正确性证明；预言机资源已在下文证明。
 
-[显式相位](QFixLean/FixedPoint/ExplicitPhases.lean)已将 P14 的反余切相位序列连接到 P24 执行：转换后的每个目标角相差一整圈，精确算符关系保留全局因子 `(-1)^ℓ`。[正确性证明](QFixLean/FixedPoint/Correctness.lean)对 `L=2ℓ+1` 和 `0<γ≤1` 证明实际输出的失败概率为 `[T_L(sqrt(1−λ)/γ)/T_L(1/γ)]²`，成功概率为一减去该值。概率定理包含初始成功率零、一、空序列和任意秩目标。采用标准参数且 `λ≥1−γ²` 时，同一实际 P14 输出的失败概率不超过 `δ²`、成功概率至少为 `1−δ²`，无需公式假设。满足参数匹配条件的下界给出统一保证，相位不依赖未知的实际 λ。[精确算法检查](QFixLean/Examples/FixedPointCorrectness.lean)对照直接算符计算与一般公式，保留复相位和带符号振幅。M18 仍负责位翻转预言机实现、辅助位恢复、有限次数选择和查询界；目前不宣称查询最优性。
+[显式相位](QFixLean/FixedPoint/ExplicitPhases.lean)已将 P14 的反余切相位序列连接到 P24 执行：转换后的每个目标角相差一整圈，精确算符关系保留全局因子 `(-1)^ℓ`。[正确性证明](QFixLean/FixedPoint/Correctness.lean)对 `L=2ℓ+1` 和 `0<γ≤1` 证明实际输出的失败概率为 `[T_L(sqrt(1−λ)/γ)/T_L(1/γ)]²`，成功概率为一减去该值。概率定理包含初始成功率零、一、空序列和任意秩目标。采用标准参数且 `λ≥1−γ²` 时，同一实际 P14 输出的失败概率不超过 `δ²`、成功概率至少为 `1−δ²`，无需公式假设。满足参数匹配条件的下界给出统一保证，相位不依赖未知的实际 λ。[精确算法检查](QFixLean/Examples/FixedPointCorrectness.lean)对照直接算符计算与一般公式，保留复相位和带符号振幅。下文的实现提供位翻转预言机语义、辅助位恢复、有限次数选择和查询界。
+
+[Hilbert 辅助位空间](QFixLean/Basic/Ancilla.lean)对两个数据分量使用平方和范数。[目标控制位翻转预言机](QFixLean/FixedPoint/Oracle.lean)在整个扩展空间上为酉变换；两次调用之间插入辅助位 `diag(1, exp(iφ))`，对任意数据向量精确实现目标相位并恢复辅助位为零。[态制备共轭](QFixLean/FixedPoint/Preparation.lean)用 `A†`、参考态相位、`A` 实现固定源态相位。[可计数表达式](QFixLean/FixedPoint/Construction.lean)及其[酉语义](QFixLean/FixedPoint/Compilation.lean)编译 M17 的同一个相位列表，保留执行顺序和 P14 的精确全局因子 `(-1)^ℓ`。[预言机例子](QFixLean/Examples/Oracle.lean)覆盖计算基 XOR、直接叠加分量计算、连续辅助位复用及秩二目标。
+
+[有限选参](QFixLean/FixedPoint/Parameters.lean)明确规定 `B = log(2/δ)/sqrt(λ₀)`、`ℓ = ceil(B/2)`、`L = 2ℓ+1`，证明标准参数满足 `1−γ²≤λ₀`，并得到 `Q < B+2` 和 `L < B+3`。[联合算法定理](QFixLean/FixedPoint/Resources.lean)的前提为归一参考态、酉态制备、正交目标、`0<δ<1`，以及实际制备态成功率至少为 `λ₀∈(0,1]`。实际编译输出归一化、辅助位恢复，与已证明的显式算法对应，失败概率不超过 `δ²`、成功概率至少为 `1−δ²`。同一个未经优化的构造使用 `Q=2ℓ=L−1` 次位翻转查询、`ℓ+1` 次 A、`ℓ` 次 A†，以及各 `ℓ` 次参考态相位和辅助位相位；若已提供制备态，则去掉初始额外的一次 A。[完整精确例子](QFixLean/Examples/FixedPointResources.lean)使用非恒等有理旋转、`λ₀=1/4`、`δ=1/2`：次数五、成功率至少 `3/4`、四次位翻转查询、三次 A 和两次 A†。
+
+这些是精确相位模型下的构造成本：所述查询界假定 A/A† 不含目标查询成本，参考态与辅助位相位作为另计的已提供操作。M10 统计目标相位查询，M18 统计位翻转查询，比较前需要明确实现换算。有限上界不包含查询最优性的下界证明，也不表示最小门数或运行时间；精确实数相位不等于已完成有限精度相位综合。M19 全项目复现审查和 M20 课程交付仍待推进。
 
 Copyright © 2026 QFixLean contributors。QFixLean 采用 [Apache License 2.0](LICENSE)；依赖保留各自的许可证及声明。

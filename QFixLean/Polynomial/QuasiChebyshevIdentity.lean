@@ -23,7 +23,8 @@ the action has a nontrivial stabilizer. The denominator follows by evaluating
 the numerator at one; no out-of-domain square-root substitution is used.
 
 These are scalar identities. `FixedPoint.Correctness` connects them to the
-explicit quantum phase schedule; oracle resources remain a separate task.
+explicit quantum phase schedule; `FixedPoint.Resources` supplies the separate
+bit-oracle implementation, finite selection and resource proofs.
 The general conditional quantum theorem is retained.
 -/
 

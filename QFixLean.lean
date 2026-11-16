@@ -1,5 +1,6 @@
 module  -- shake: keep-all --deprecated_module: ignore
 
+public import QFixLean.Basic.Ancilla
 public import QFixLean.Basic.Phase
 public import QFixLean.Basic.PhaseFactor
 public import QFixLean.Basic.PhaseRotation
@@ -13,25 +14,34 @@ public import QFixLean.Examples.CyclicTilings
 public import QFixLean.Examples.FixedPointCorrectness
 public import QFixLean.Examples.FixedPointRecurrence
 public import QFixLean.Examples.FixedPointReduction
+public import QFixLean.Examples.FixedPointResources
 public import QFixLean.Examples.LineTilings
 public import QFixLean.Examples.Measurement
+public import QFixLean.Examples.Oracle
 public import QFixLean.Examples.Phase
 public import QFixLean.Examples.PiOverThree
 public import QFixLean.Examples.PiOverThreeConvergence
 public import QFixLean.Examples.PiOverThreeRecursion
 public import QFixLean.Examples.PiOverThreeResources
+public import QFixLean.Examples.Preparation
 public import QFixLean.Examples.QuasiChebyshev
 public import QFixLean.Examples.QuasiChebyshevIdentity
 public import QFixLean.Examples.Qubit
 public import QFixLean.FixedPoint.AmplitudeRecurrence
+public import QFixLean.FixedPoint.Compilation
 public import QFixLean.FixedPoint.Conditional
+public import QFixLean.FixedPoint.Construction
 public import QFixLean.FixedPoint.Correctness
 public import QFixLean.FixedPoint.ExplicitPhases
 public import QFixLean.FixedPoint.Interleaved
+public import QFixLean.FixedPoint.Oracle
+public import QFixLean.FixedPoint.Parameters
 public import QFixLean.FixedPoint.PhaseBoundary
 public import QFixLean.FixedPoint.PhaseConventions
 public import QFixLean.FixedPoint.PhaseSequence
+public import QFixLean.FixedPoint.Preparation
 public import QFixLean.FixedPoint.Reduction
+public import QFixLean.FixedPoint.Resources
 public import QFixLean.FixedPoint.TwoDimensional
 public import QFixLean.PiOverThree.Boundary
 public import QFixLean.PiOverThree.Construction
